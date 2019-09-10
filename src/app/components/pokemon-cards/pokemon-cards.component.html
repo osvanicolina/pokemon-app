@@ -1,0 +1,12 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">  
+  <mat-grid-list fxFlex="90%" cols="4" rowHeight="400px">
+    <mat-grid-tile class="padding-bot" *ngFor="let pokemon of pokemonsToShow" >
+      <mat-card class="card-picture" >
+        <img mat-card-image [src]= "pokemon.sprites.front_default" style="background:gray">
+        <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" >
+          <span>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</span>
+        </mat-card-title>
+      </mat-card>
+    </mat-grid-tile> 
+  </mat-grid-list>
+</div>

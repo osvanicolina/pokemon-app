@@ -22,5 +22,9 @@ export class PokeApiService {
     return this.getQuery('pokemon/?limit=151');
   }
 
+  getPokemonByUrl(url: string){
+    return this.http.get(url);
+  }
+
 
 }
