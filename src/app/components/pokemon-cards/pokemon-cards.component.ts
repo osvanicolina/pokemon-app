@@ -13,6 +13,7 @@ export class PokemonCardsComponent {
    }
 
   ngOnInit() {
+    console.log(this.pokemonsToShow[0]);
   }
 
 }

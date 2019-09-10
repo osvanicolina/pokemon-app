@@ -2,7 +2,7 @@
   <mat-grid-list fxFlex="90%" cols="4" rowHeight="400px">
     <mat-grid-tile class="padding-bot" *ngFor="let pokemon of pokemonsToShow" >
       <mat-card class="card-picture" >
-        <img mat-card-image [src]= "pokemon.sprites.front_default" style="background:gray">
+        <img mat-card-image [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
         <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" >
           <span>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</span>
         </mat-card-title>
