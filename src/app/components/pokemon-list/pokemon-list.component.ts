@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PokeApiService } from 'src/app/services/poke-api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
+
 
 @Component({
   selector: 'app-pokemon-list',
@@ -14,7 +17,8 @@ export class PokemonListComponent implements OnInit {
   loading: boolean = true;
   filtro: string = "";
   
-  constructor(private pokeApiService: PokeApiService) { 
+  constructor(private pokeApiService: PokeApiService,
+              private _snackBar: MatSnackBar) { 
     console.log('Beginning PokemonListComponent!');
     this.pokeApiService.getFirstGenList()
       .subscribe( data => { 
@@ -46,6 +50,9 @@ export class PokemonListComponent implements OnInit {
     this.getPokemonsToShow(pokemonFiltered);
     if(pokemonFiltered.length == 0){
       this.loading = false;
+      this._snackBar.openFromComponent(ErrorSnackBarComponent, {
+        duration: 5 * 1000,
+      });
     }
   }
 

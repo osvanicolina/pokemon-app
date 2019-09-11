@@ -11,6 +11,7 @@ import { PokemonCardsComponent } from './components/pokemon-cards/pokemon-cards.
 import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     PokemonListComponent,
     PokemonCardsComponent,
     PokemonDetailsComponent,
-    LoadingComponent
+    LoadingComponent,
+    ErrorSnackBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     MaterialModule,
     FormsModule
   ],
+  entryComponents:[ErrorSnackBarComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
