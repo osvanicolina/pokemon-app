@@ -22,10 +22,12 @@ export class PokemonDetailsComponent implements OnInit {
               private router: Router) {
     this.activateRoute.params.subscribe( params =>{
       console.log('Pokemon ID: ' + params['id']);
+      //Validaciones para mostrar la vista o no 
       if(isNaN(params['id']) || parseInt(params['id']) > 151 || parseInt(params['id']) < 0 ){
         this.router.navigate(['']);
       }
       else{
+        //Obtenemos la id pasada por parametro y obtenemos la información del pokemon
         this.pokeApiService.getPokemonById(params['id'])
           .subscribe( data => {
             this.pokemon = data;
@@ -53,6 +55,7 @@ export class PokemonDetailsComponent implements OnInit {
   ngOnInit() {
   }
   
+  //Obtenemos las evoluciones de forma recursiva
   private getEvolutions(actualState: any){
     this.evolutionArray.push(actualState.species.name);
     if(actualState.evolves_to.length > 0){
@@ -62,7 +65,8 @@ export class PokemonDetailsComponent implements OnInit {
       console.log(this.evolutionArray);
     }
   }
-
+  
+  //Función para ir al home
   goHome(){
     this.router.navigate(['']);
   }

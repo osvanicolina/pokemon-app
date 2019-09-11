@@ -20,10 +20,12 @@ export class PokemonListComponent implements OnInit {
   constructor(private pokeApiService: PokeApiService,
               private _snackBar: MatSnackBar) { 
     console.log('Beginning PokemonListComponent!');
+
     this.pokeApiService.getFirstGenList()
       .subscribe( data => { 
         this.pokemonList = data;
         console.log(this.pokemonList); //Muestra los 151 pokemons
+        //Listamos los primeros 25 pokemons
         this.getPokemonsToShow(this.pokemonList.slice(0,25));
       }, (errorService) => {
         this.messageError = errorService.error.error.message;
@@ -44,6 +46,8 @@ export class PokemonListComponent implements OnInit {
       }
     });
     console.log(pokemonFiltered);
+    
+    //Obtenemos máximo los 25 primeros pokemones que cumplan con el termino del filtro
     if(pokemonFiltered.length > 25){
       pokemonFiltered = pokemonFiltered.slice(0,25);
     }
