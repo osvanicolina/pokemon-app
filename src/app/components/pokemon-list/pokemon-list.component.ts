@@ -44,6 +44,9 @@ export class PokemonListComponent implements OnInit {
       pokemonFiltered = pokemonFiltered.slice(0,25);
     }
     this.getPokemonsToShow(pokemonFiltered);
+    if(pokemonFiltered.length == 0){
+      this.loading = false;
+    }
   }
 
   private getPokemonsToShow(pokemonList: any[]){ //Se le pasa una lista de máximo 25 elementos

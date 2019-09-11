@@ -34,7 +34,7 @@
     </mat-card-content>
     
 
-    <mat-card-content align="center">
+    <mat-card-content align="center" *ngIf="evolutionArray.length > 0">
       <h2>Evolve Chain:</h2>
       <section >
         <mat-chip-list aria-label="Fish selection" fxLayoutAlign="center" *ngIf="!loadingEvolutions">

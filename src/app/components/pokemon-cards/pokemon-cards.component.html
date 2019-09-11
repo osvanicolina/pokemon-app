@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">  
   <mat-grid-list fxFlex="90%" cols="4" rowHeight="500px">
-    <mat-grid-tile class="padding-bot" *ngFor="let pokemon of pokemonsToShow" (click) = "pokemonDetails(pokemon)">
-      <mat-card class="card-picture" >
+    <mat-grid-tile class="padding-bot" *ngFor="let pokemon of pokemonsToShow">
+      <mat-card class="card-picture" (click) = "pokemonDetails(pokemon)" >
         <img mat-card-image [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
         <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
           <strong>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</strong>
@@ -11,7 +11,7 @@
         </mat-chip-list>
         <br>
         <mat-card-content align="center" style="font-size:16px">
-          <strong>Evolve from:</strong>
+          <strong>Evolves from:</strong>
           <section >
             <mat-card-title align="center" style="font-size:16px;">
               <strong *ngIf="pokemon.have_evolve_from">{{pokemon.evolve_from.name | titlecase}}</strong> 
