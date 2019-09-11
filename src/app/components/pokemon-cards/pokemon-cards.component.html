@@ -3,9 +3,12 @@
     <mat-grid-tile class="padding-bot" *ngFor="let pokemon of pokemonsToShow" >
       <mat-card class="card-picture" >
         <img mat-card-image [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
-        <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" >
+        <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
           <span>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</span>
         </mat-card-title>
+        <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
+          <mat-chip *ngFor="let type of pokemon.types">{{type.type.name}}</mat-chip>
+        </mat-chip-list>
       </mat-card>
     </mat-grid-tile> 
   </mat-grid-list>
