@@ -26,5 +26,9 @@ export class PokeApiService {
     return this.http.get(url);
   }
 
+  getPokemonById(id: number){
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  }
+
 
 }

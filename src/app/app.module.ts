@@ -8,13 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { PokemonCardsComponent } from './components/pokemon-cards/pokemon-cards.component';
+import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListComponent,
-    PokemonCardsComponent
+    PokemonCardsComponent,
+    PokemonDetailsComponent
   ],
   imports: [
     BrowserModule,
