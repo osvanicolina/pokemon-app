@@ -22,26 +22,31 @@ export class PokemonDetailsComponent implements OnInit {
               private router: Router) {
     this.activateRoute.params.subscribe( params =>{
       console.log('Pokemon ID: ' + params['id']);
-      this.pokeApiService.getPokemonById(params['id'])
-        .subscribe( data => {
-          this.pokemon = data;
-          this.principalType = data['types'][0].type.name; 
-          this.loading = false;
-          console.log("Pokemon info:", this.pokemon);
-        }, error => console.log(error));
-
-      this.pokeApiService.getPokemonSpecies(params['id'])
-        .subscribe( data => {
-          this.pokemonSpecies = data;
-          console.log("Pokemon species info:", this.pokemonSpecies);
-
-          this.pokeApiService.getPokemonByUrl(this.pokemonSpecies.evolution_chain.url)
-            .subscribe( data => {
-              this.getEvolutions(data['chain']);
-              this.loadingEvolutions = false;
-              console.log("Evolution info:", data);
-            }, error => console.log(error));
-        }, error => console.log(error));
+      if(isNaN(params['id']) || parseInt(params['id']) > 151 || parseInt(params['id']) < 0 ){
+        this.router.navigate(['']);
+      }
+      else{
+        this.pokeApiService.getPokemonById(params['id'])
+          .subscribe( data => {
+            this.pokemon = data;
+            this.principalType = data['types'][0].type.name; 
+            this.loading = false;
+            console.log("Pokemon info:", this.pokemon);
+          }, error => console.log(error));
+  
+        this.pokeApiService.getPokemonSpecies(params['id'])
+          .subscribe( data => {
+            this.pokemonSpecies = data;
+            console.log("Pokemon species info:", this.pokemonSpecies);
+  
+            this.pokeApiService.getPokemonByUrl(this.pokemonSpecies.evolution_chain.url)
+              .subscribe( data => {
+                this.getEvolutions(data['chain']);
+                this.loadingEvolutions = false;
+                console.log("Evolution info:", data);
+              }, error => console.log(error));
+          }, error => console.log(error));
+      }
     });
   }
 
