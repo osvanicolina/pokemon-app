@@ -23,15 +23,20 @@
       </div>
     </mat-card-content>
 
-    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
-      
-    </mat-card-title>
-
     <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
       <mat-chip *ngFor="let ability of pokemon.abilities" class="ability">{{ability.ability.name | titlecase}}</mat-chip>
     </mat-chip-list>
 
     <br>
+    <mat-card-content align="center">
+        <h2>Evolve Chain</h2>
+      <section >
+        <mat-chip-list aria-label="Fish selection" fxLayoutAlign="center" *ngIf="!loadingEvolutions">
+          <mat-chip *ngFor="let evolution of evolutionArray" [ngClass] = "principalType">{{ evolution | titlecase}}</mat-chip>
+        </mat-chip-list>
+      </section>
+    </mat-card-content>
+    
 
     <mat-card-content align="center">
       <h2>Image Settings:</h2>
