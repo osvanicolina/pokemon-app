@@ -9,12 +9,19 @@ import { PokeApiService } from 'src/app/services/poke-api.service';
 })
 export class PokemonDetailsComponent implements OnInit {
   pokemon: any;
+  loading: boolean = true;
+  shiny: boolean = false;
+  back: boolean = false;
   constructor(private activateRoute: ActivatedRoute,
               private pokeApiService: PokeApiService) {
     this.activateRoute.params.subscribe( params =>{
       console.log('Pokemon ID: ' + params['id']);
       this.pokeApiService.getPokemonById(params['id'])
-        .subscribe( data => this.pokemon = data, error => console.log(error));
+        .subscribe( data => {
+          this.pokemon = data;
+          this.loading = false;
+          console.log(this.pokemon);
+        }, error => console.log(error));
     });
   }
 

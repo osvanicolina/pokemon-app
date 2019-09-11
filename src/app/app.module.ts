@@ -9,6 +9,7 @@ import { MaterialModule } from './material/material.module';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { PokemonCardsComponent } from './components/pokemon-cards/pokemon-cards.component';
 import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-de
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

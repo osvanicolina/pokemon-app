@@ -1,3 +1,40 @@
-<p>
-  pokemon-details works!
-</p>
+<div fxLayout="row" fxFill fxLayoutAlign="center center" *ngIf="!loading">  
+  <mat-card class="card-picture" >
+    <img mat-card-image *ngIf="!shiny && !back" [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
+    <img mat-card-image *ngIf="!shiny && back" [src]= "pokemon.sprites.back_default" style="background:rgb(163, 161, 161)">
+    <img mat-card-image *ngIf="shiny && !back" [src]= "pokemon.sprites.front_shiny" style="background:rgb(163, 161, 161)">
+    <img mat-card-image *ngIf="shiny && back" [src]= "pokemon.sprites.back_shiny" style="background:rgb(163, 161, 161)">
+    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
+      <span>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</span>
+    </mat-card-title>
+
+    <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
+      <mat-chip *ngFor="let type of pokemon.types" [ngClass]="type.type.name">{{type.type.name | titlecase}}</mat-chip>
+    </mat-chip-list>
+
+    <br>
+
+    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
+     <strong>Height:</strong> {{ pokemon.height}}
+    </mat-card-title>
+
+    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
+      <strong>Weight:</strong>{{pokemon.weight}}
+    </mat-card-title>
+
+    <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
+      <mat-chip *ngFor="let ability of pokemon.abilities" class="ability">{{ability.ability.name | titlecase}}</mat-chip>
+    </mat-chip-list>
+
+    <br>
+
+    <mat-card-content align="center">
+      <h2>Image Settings:</h2>
+      <section >
+        <mat-checkbox [(ngModel)]="shiny">Shiny</mat-checkbox> 
+        <mat-checkbox [(ngModel)]="back">Back</mat-checkbox>
+      </section>
+    </mat-card-content>
+    </mat-card>
+</div>
+

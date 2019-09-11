@@ -3,6 +3,8 @@ import { MatButtonModule, MatInputModule, MatChipsModule, MatFormFieldModule, Ma
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatListModule} from '@angular/material/list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -12,7 +14,9 @@ const MaterialComponents = [
   FlexLayoutModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatListModule,
+  MatCheckboxModule
 ]
 @NgModule({
   imports: [
