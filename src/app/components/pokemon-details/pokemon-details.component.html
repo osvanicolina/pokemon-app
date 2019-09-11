@@ -5,7 +5,7 @@
     <img mat-card-image *ngIf="shiny && !back" [src]= "pokemon.sprites.front_shiny" style="background:rgb(163, 161, 161)">
     <img mat-card-image *ngIf="shiny && back" [src]= "pokemon.sprites.back_shiny" style="background:rgb(163, 161, 161)">
     <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
-      <span>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</span>
+      <strong>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</strong>
     </mat-card-title>
 
     <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
@@ -14,12 +14,17 @@
 
     <br>
 
-    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
-     <strong>Height:</strong> {{ pokemon.height}}
-    </mat-card-title>
+    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" style="font-size:18px">
+      <div fxFlex="45%" fxLayoutAlign="end">
+        <strong>Height:</strong> {{ pokemon.height}}
+      </div>
+      <div fxFlexOffset="10%" fxFlex="50%" fxLayoutAlign="start" style="font-size:18px">
+        <strong>Weight:</strong> {{pokemon.weight}}
+      </div>
+    </mat-card-content>
 
     <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
-      <strong>Weight:</strong>{{pokemon.weight}}
+      
     </mat-card-title>
 
     <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
@@ -38,3 +43,13 @@
     </mat-card>
 </div>
 
+<div fxLayout="row" fxFill fxLayoutAlign="center center" *ngIf="loading">
+  <mat-card style="text-align:center;">  
+    <mat-card-title>
+      <h2>Loading...</h2>
+    </mat-card-title>
+    <mat-progress-spinner style="margin:0 auto;"
+        mode="indeterminate">
+    </mat-progress-spinner>
+  </mat-card>
+</div>
