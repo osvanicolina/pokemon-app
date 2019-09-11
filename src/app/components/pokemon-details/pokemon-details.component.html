@@ -14,22 +14,28 @@
 
     <br>
 
-    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" style="font-size:18px">
+    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" style="font-size:20px">
       <div fxFlex="45%" fxLayoutAlign="end">
-        <strong>Height:</strong> {{ pokemon.height}}
+        <strong>Height:</strong> {{ pokemon.height }}
       </div>
-      <div fxFlexOffset="10%" fxFlex="50%" fxLayoutAlign="start" style="font-size:18px">
-        <strong>Weight:</strong> {{pokemon.weight}}
+      <div fxFlexOffset="10%" fxFlex="45%" fxLayoutAlign="start" style="font-size:20px">
+        <strong>Weight:</strong> {{ pokemon.weight }}
       </div>
     </mat-card-content>
 
-    <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
-      <mat-chip *ngFor="let ability of pokemon.abilities" class="ability">{{ability.ability.name | titlecase}}</mat-chip>
-    </mat-chip-list>
 
-    <br>
     <mat-card-content align="center">
-        <h2>Evolve Chain</h2>
+      <h2>Abilities:</h2>
+      <section >
+        <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
+          <mat-chip *ngFor="let ability of pokemon.abilities" class="ability">{{ability.ability.name | titlecase}}</mat-chip>
+        </mat-chip-list>
+      </section>
+    </mat-card-content>
+    
+
+    <mat-card-content align="center">
+        <h2>Evolve Chain:</h2>
       <section >
         <mat-chip-list aria-label="Fish selection" fxLayoutAlign="center" *ngIf="!loadingEvolutions">
           <mat-chip *ngFor="let evolution of evolutionArray" [ngClass] = "principalType">{{ evolution | titlecase}}</mat-chip>
@@ -41,11 +47,18 @@
     <mat-card-content align="center">
       <h2>Image Settings:</h2>
       <section >
-        <mat-checkbox [(ngModel)]="shiny">Shiny</mat-checkbox> 
-        <mat-checkbox [(ngModel)]="back">Back</mat-checkbox>
+        <mat-checkbox [(ngModel)]="shiny" color="warn">Shiny Version</mat-checkbox> 
+        <mat-checkbox [(ngModel)]="back" color="warn">From Back</mat-checkbox>
       </section>
     </mat-card-content>
+
+    <mat-card-content align="center">
+      <button mat-raised-button color="warn" (click)="goHome()">Back</button>
+    </mat-card-content>
+
     </mat-card>
+
+    
 </div>
 
 <div fxLayout="row" fxFill fxLayoutAlign="center center" *ngIf="loading">

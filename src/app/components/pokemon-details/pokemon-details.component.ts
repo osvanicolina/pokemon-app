@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PokeApiService } from 'src/app/services/poke-api.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class PokemonDetailsComponent implements OnInit {
   principalType: string;
 
   constructor(private activateRoute: ActivatedRoute,
-              private pokeApiService: PokeApiService) {
+              private pokeApiService: PokeApiService,
+              private router: Router) {
     this.activateRoute.params.subscribe( params =>{
       console.log('Pokemon ID: ' + params['id']);
       this.pokeApiService.getPokemonById(params['id'])
@@ -55,6 +56,9 @@ export class PokemonDetailsComponent implements OnInit {
     else{
       console.log(this.evolutionArray);
     }
+  }
 
+  goHome(){
+    this.router.navigate(['']);
   }
 }
