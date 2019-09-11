@@ -1,14 +1,25 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">  
-  <mat-grid-list fxFlex="90%" cols="4" rowHeight="400px">
+  <mat-grid-list fxFlex="90%" cols="4" rowHeight="500px">
     <mat-grid-tile class="padding-bot" *ngFor="let pokemon of pokemonsToShow" (click) = "pokemonDetails(pokemon)">
       <mat-card class="card-picture" >
         <img mat-card-image [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
         <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
-          <span>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</span>
+          <strong>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</strong>
         </mat-card-title>
         <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
           <mat-chip *ngFor="let type of pokemon.types" [ngClass]="type.type.name">{{type.type.name | titlecase}}</mat-chip>
         </mat-chip-list>
+        <br>
+        <mat-card-content align="center" style="font-size:16px">
+          <strong>Evolve from:</strong>
+          <section >
+            <mat-card-title align="center" style="font-size:16px;">
+              <strong *ngIf="pokemon.have_evolve_from">{{pokemon.evolve_from.name | titlecase}}</strong> 
+              <strong *ngIf="!pokemon.have_evolve_from">None</strong>
+            </mat-card-title>
+          </section>
+        </mat-card-content>
+        
       </mat-card>
     </mat-grid-tile> 
   </mat-grid-list>

@@ -33,7 +33,7 @@ export class PokemonListComponent implements OnInit {
   pokemonFilter(term: string){
     console.log("Filtering: " + term);
     let pokemonFiltered = this.pokemonList.filter( (pokemon)=>{
-      if(pokemon.name.indexOf(term) === -1){
+      if(pokemon.name.indexOf(term.toLocaleLowerCase()) === -1){
         return false;
       }else{
         return true;
@@ -46,13 +46,25 @@ export class PokemonListComponent implements OnInit {
     this.getPokemonsToShow(pokemonFiltered);
   }
 
-  private getPokemonsToShow(pokemonList: any[]){ 
+  private getPokemonsToShow(pokemonList: any[]){ //Se le pasa una lista de máximo 25 elementos
     this.pokemonsToShow = [];
     this.loading = true;
     pokemonList.forEach((pokemon)=>{
       this.pokeApiService.getPokemonByUrl(pokemon.url)
         .subscribe( data => {
           this.pokemonsToShow.push(data);
+          //Obtenemos el origen del pokemon
+          this.pokeApiService.getPokemonSpecies(data['id'])
+            .subscribe(pokemonData => {
+              if(pokemonData['evolves_from_species']){
+                data['have_evolve_from'] = true;
+              }else{
+                data['have_evolve_from'] = false;
+              }
+              return data['evolve_from'] = pokemonData['evolves_from_species']
+            });
+
+          //Ordenamos al listar el último elemento
           if(this.pokemonsToShow.length === pokemonList.length || this.pokemonsToShow.length === 25){  
 
             this.pokemonsToShow.sort( (pokemonA,pokemonB) =>{
