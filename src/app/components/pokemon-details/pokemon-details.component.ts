@@ -25,6 +25,7 @@ export class PokemonDetailsComponent implements OnInit {
       this.pokeApiService.getPokemonById(params['id'])
         .subscribe( data => {
           this.pokemon = data;
+          this.principalType = data['types'][0].type.name; 
           this.loading = false;
           console.log("Pokemon info:", this.pokemon);
         }, error => console.log(error));
@@ -37,7 +38,6 @@ export class PokemonDetailsComponent implements OnInit {
           this.pokeApiService.getPokemonByUrl(this.pokemonSpecies.evolution_chain.url)
             .subscribe( data => {
               this.getEvolutions(data['chain']);
-              this.principalType = this.pokemon.types[0].type.name; 
               this.loadingEvolutions = false;
               console.log("Evolution info:", data);
             }, error => console.log(error));
