@@ -1,12 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="center">
-  <mat-form-field class="search-form"  >
-    <input matInput placeholder="Search Picture" type="text">
-  </mat-form-field>
-  <button button="submit" mat-raised-button color="primary">Search</button>
+<div id = "field-div" fxLayout="row" fxLayoutAlign="center">  
+  <mat-card >
+    <mat-form-field class="search-form" fxFlex="70%" style="background:white;">
+      <input matInput placeholder="Search Pokemon" type="text" #pokemonFilterForm> 
+    </mat-form-field>
+    <button button="submit" (click)= "pokemonFilter(pokemonFilterForm.value)" mat-raised-button color="primary" fxFlex="30%">Search</button>
+  </mat-card>
 </div>
-<br>
 
-
-     <app-pokemon-cards *ngIf= "!loading" [pokemonsToShow] = "pokemonsToShow"></app-pokemon-cards>
+<app-pokemon-cards *ngIf= "!loading" [pokemonsToShow] = "pokemonsToShow"></app-pokemon-cards>
   
 
