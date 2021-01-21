@@ -12,6 +12,7 @@ import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-de
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
+import { MatSelectModule } from '@angular/material';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule
   ],

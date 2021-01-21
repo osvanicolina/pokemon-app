@@ -3,7 +3,7 @@ import { PokeApiService } from 'src/app/services/poke-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  } from '@angular/core';
+import { pokemonTypes } from '../../models/pokemonTypes';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class PokemonListComponent implements OnInit {
   error: boolean = false;
   loading: boolean = true;
   filterForm: FormGroup;
-  
+  pokemonTypesOptions: string[] = ['poison','grass','fire','water','electric','normal','flying','bug','ground','psychic','ice','rock','steel','ghost','dark','fairy','fighting','dragon'];
   @ViewChild('pokemonNameInput', { static: false }) pokemonNameInput: ElementRef;
 
   constructor(private formBuilder: FormBuilder,

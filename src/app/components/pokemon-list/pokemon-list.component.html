@@ -1,8 +1,21 @@
 <div id = "field-div" fxLayout="row" fxLayoutAlign="center">  
   <form [formGroup]="filterForm">
     <mat-card >
-      <mat-form-field class="search-form">
+      <mat-form-field class="white-bg">
         <input matInput placeholder="Search Pokemon" type="text" formControlName="pokemonName" #pokemonNameInput> 
+      </mat-form-field>
+
+      <br>
+      <mat-form-field class="white-bg">
+        <mat-label>Pokemon Type:</mat-label>
+        <mat-select formControlName="pokemonType" name="food">
+          <mat-option [value]="">
+            Ninguno
+          </mat-option>
+          <mat-option *ngFor="let pokemonType of pokemonTypesOptions" [value]="pokemonType">
+            {{pokemonType | titlecase}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </mat-card>
   </form>
