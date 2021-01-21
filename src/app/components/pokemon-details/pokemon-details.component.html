@@ -1,9 +1,9 @@
 <div fxLayout="row" fxFill fxLayoutAlign="center center" *ngIf="!loading">  
   <mat-card class="card-picture" >
-    <img mat-card-image *ngIf="!shiny && !back" [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
-    <img mat-card-image *ngIf="!shiny && back" [src]= "pokemon.sprites.back_default" style="background:rgb(163, 161, 161)">
-    <img mat-card-image *ngIf="shiny && !back" [src]= "pokemon.sprites.front_shiny" style="background:rgb(163, 161, 161)">
-    <img mat-card-image *ngIf="shiny && back" [src]= "pokemon.sprites.back_shiny" style="background:rgb(163, 161, 161)">
+    <img mat-card-image *ngIf="!shiny && !back" [src]= "pokemon.sprites.front_default" class="image-bg">
+    <img mat-card-image *ngIf="!shiny && back" [src]= "pokemon.sprites.back_default" class="image-bg">
+    <img mat-card-image *ngIf="shiny && !back" [src]= "pokemon.sprites.front_shiny" class="image-bg">
+    <img mat-card-image *ngIf="shiny && back" [src]= "pokemon.sprites.back_shiny" class="image-bg">
     <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
       <strong>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</strong>
     </mat-card-title>
@@ -14,25 +14,18 @@
 
     <br>
 
-    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" style="font-size:20px">
+    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" class="font-size-20">
       <div fxFlex="45%" fxLayoutAlign="end">
         <strong>Height:</strong> {{ pokemon.height }}
       </div>
-      <div fxFlexOffset="10%" fxFlex="45%" fxLayoutAlign="start" style="font-size:20px">
+      <div fxFlexOffset="10%" fxFlex="45%" fxLayoutAlign="start" class="font-size-20">
         <strong>Weight:</strong> {{ pokemon.weight }}
       </div>
     </mat-card-content>
 
-
-    <mat-card-content align="center">
-      <h2>Abilities:</h2>
-      <section >
-        <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
-          <mat-chip *ngFor="let ability of pokemon.abilities" class="ability">{{ability.ability.name | titlecase}}</mat-chip>
-        </mat-chip-list>
-      </section>
+    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" class="font-size-20">
+      <strong>Base Experience:</strong> {{ pokemon.base_experience }}
     </mat-card-content>
-    
 
     <mat-card-content align="center" *ngIf="evolutionArray.length > 0">
       <h2>Evolve Chain:</h2>

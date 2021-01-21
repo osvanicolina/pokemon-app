@@ -1,4 +1,12 @@
 
 #field-div {
     padding-top: 40px;
-  }
+}
+
+.white-bg{
+  background: white;
+}
+
+::ng-deep .mat-card-title{
+  font-size: 1.2em;
+}
