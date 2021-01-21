@@ -1,10 +1,12 @@
-<div id = "field-div" fxLayout="row" fxLayoutAlign="center" *ngIf= "!loading">  
-  <mat-card >
-    <mat-form-field class="search-form" fxFlex="70%" style="background:white;">
-      <input matInput placeholder="Search Pokemon" type="text" #pokemonFilterForm> 
-    </mat-form-field>
-    <button button="submit" (click)= "pokemonFilter(pokemonFilterForm.value)" mat-raised-button color="primary" fxFlex="30%">Search</button>
-  </mat-card>
+<div id = "field-div" fxLayout="row" fxLayoutAlign="center">  
+  <form [formGroup]="filterForm">
+    <mat-card >
+      <mat-form-field class="search-form" style="background:white;">
+        <input matInput placeholder="Search Pokemon" type="text" formControlName="pokemonName"> 
+      </mat-form-field>
+      <!-- <button button="submit" (click)= "pokemonFilter(pokemonFilterForm.value)" mat-raised-button color="primary" fxFlex="30%">Search</button> -->
+    </mat-card>
+  </form>
 </div>
 
 <app-pokemon-cards *ngIf= "!loading" [pokemonsToShow] = "pokemonsToShow"></app-pokemon-cards>

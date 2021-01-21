@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokeApiService } from 'src/app/services/poke-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,15 +16,25 @@ export class PokemonListComponent implements OnInit {
   messageError: string;
   error: boolean = false;
   loading: boolean = true;
-  filtro: string = "";
+  filterForm: FormGroup;
   
-  constructor(private pokeApiService: PokeApiService,
+  constructor(private formBuilder: FormBuilder,
+              private pokeApiService: PokeApiService,
               private _snackBar: MatSnackBar) { 
-    console.log('Beginning PokemonListComponent!');
+    
+    this.filterForm = this.formBuilder.group({
+      pokemonName: ['', ],
+      pokemonTypeName: ['',]
+    }, {});
+    
+    this.filterForm.valueChanges.subscribe(()=> {
+      this.pokemonFilter(this.filterForm.get('pokemonName').value);
+    });
+
     this.pokeApiService.getFirstGenList()
       .subscribe( data => { 
         this.pokemonList = data;
-        console.log(this.pokemonList); //Muestra los 151 pokemons
+        this.loading = false;
         this.getPokemonsToShow(this.pokemonList.slice(0,25));
       }, (errorService) => {
         this.messageError = errorService.error.error.message;
@@ -35,7 +46,6 @@ export class PokemonListComponent implements OnInit {
   }
   
   pokemonFilter(term: string){
-    console.log("Filtering: " + term);
     let pokemonFiltered = this.pokemonList.filter( (pokemon)=>{
       if(pokemon.name.indexOf(term.toLocaleLowerCase()) === -1){
         return false;
@@ -43,13 +53,11 @@ export class PokemonListComponent implements OnInit {
         return true;
       }
     });
-    console.log(pokemonFiltered);
     if(pokemonFiltered.length > 25){
       pokemonFiltered = pokemonFiltered.slice(0,25);
     }
     this.getPokemonsToShow(pokemonFiltered);
     if(pokemonFiltered.length == 0){
-      this.loading = false;
       this._snackBar.openFromComponent(ErrorSnackBarComponent, {
         duration: 5 * 1000,
       });
@@ -58,7 +66,6 @@ export class PokemonListComponent implements OnInit {
 
   private getPokemonsToShow(pokemonList: any[]){ //Se le pasa una lista de máximo 25 elementos
     this.pokemonsToShow = [];
-    this.loading = true;
     pokemonList.forEach((pokemon)=>{
       this.pokeApiService.getPokemonByUrl(pokemon.url)
         .subscribe( data => {
@@ -86,8 +93,6 @@ export class PokemonListComponent implements OnInit {
               }
               return 0;
             });
-            console.log(this.pokemonsToShow);
-            this.loading = false;
           }
         }, (error) => console.log(error));
     });
