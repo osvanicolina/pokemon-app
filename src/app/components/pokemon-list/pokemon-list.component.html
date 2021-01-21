@@ -2,7 +2,7 @@
   <form [formGroup]="filterForm">
     <mat-card >
       <mat-form-field class="search-form" style="background:white;">
-        <input matInput placeholder="Search Pokemon" type="text" formControlName="pokemonName"> 
+        <input matInput placeholder="Search Pokemon" type="text" formControlName="pokemonName" #pokemonNameInput> 
       </mat-form-field>
       <!-- <button button="submit" (click)= "pokemonFilter(pokemonFilterForm.value)" mat-raised-button color="primary" fxFlex="30%">Search</button> -->
     </mat-card>

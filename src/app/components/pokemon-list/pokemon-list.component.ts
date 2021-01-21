@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PokeApiService } from 'src/app/services/poke-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  } from '@angular/core';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class PokemonListComponent implements OnInit {
   loading: boolean = true;
   filterForm: FormGroup;
   
+  @ViewChild('pokemonNameInput', { static: false }) pokemonNameInput: ElementRef;
+
   constructor(private formBuilder: FormBuilder,
               private pokeApiService: PokeApiService,
               private _snackBar: MatSnackBar) { 
@@ -28,6 +31,8 @@ export class PokemonListComponent implements OnInit {
     }, {});
     
     this.filterForm.valueChanges.subscribe(()=> {
+      this.loading = true;
+      this.filterForm.get('pokemonName').disable({ onlySelf: true });
       this.pokemonFilter(this.filterForm.get('pokemonName').value);
     });
 
@@ -58,6 +63,9 @@ export class PokemonListComponent implements OnInit {
     }
     this.getPokemonsToShow(pokemonFiltered);
     if(pokemonFiltered.length == 0){
+      this.filterForm.get('pokemonName').enable({ onlySelf: true });
+      this.pokemonNameInput.nativeElement.focus();
+      this.loading = false;
       this._snackBar.openFromComponent(ErrorSnackBarComponent, {
         duration: 5 * 1000,
       });
@@ -93,8 +101,11 @@ export class PokemonListComponent implements OnInit {
               }
               return 0;
             });
+            this.filterForm.get('pokemonName').enable({ onlySelf: true });
+            this.pokemonNameInput.nativeElement.focus();
+            this.loading = false;
           }
-        }, (error) => console.log(error));
+        }, (error) => {console.log(error)})
     });
   }
 }
