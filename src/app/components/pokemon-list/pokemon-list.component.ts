@@ -92,7 +92,7 @@ export class PokemonListComponent implements OnInit {
             });
 
           //We sort at the last request
-          if(this.pokemonsToShow.length === pokemonList.length || this.pokemonsToShow.length === 25){  
+          if(this.pokemonsToShow.length === pokemonList.length || this.pokemonsToShow.length === 24){  
 
             this.pokemonsToShow.sort( (pokemonA,pokemonB) =>{
               if(pokemonA.id > pokemonB.id){
