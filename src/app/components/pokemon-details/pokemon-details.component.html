@@ -23,16 +23,9 @@
       </div>
     </mat-card-content>
 
-
-    <mat-card-content align="center">
-      <h2>Abilities:</h2>
-      <section >
-        <mat-chip-list aria-label="Fish selection" fxLayout="row" fxLayoutAlign="center">
-          <mat-chip *ngFor="let ability of pokemon.abilities" class="ability">{{ability.ability.name | titlecase}}</mat-chip>
-        </mat-chip-list>
-      </section>
+    <mat-card-content fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center" class="font-size-20">
+      <strong>Base Experience:</strong> {{ pokemon.base_experience }}
     </mat-card-content>
-    
 
     <mat-card-content align="center" *ngIf="evolutionArray.length > 0">
       <h2>Evolve Chain:</h2>
