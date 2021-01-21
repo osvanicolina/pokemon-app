@@ -3,13 +3,14 @@ import { PokeApiService } from 'src/app/services/poke-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { pokemonSimpleModel } from '../../models/pokemonListModel';
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
-  pokemonList: any[] = [];
+  pokemonList: pokemonSimpleModel[] = [];
   pokemonsToShow: any[] = [];
   messageError: string;
   error: boolean = false;
