@@ -50,7 +50,7 @@ export class PokemonDetailsComponent implements OnInit {
   ngOnInit() {
   }
   
-  //Obtenemos las evoluciones de forma recursiva
+  //We get chain evolution
   private getEvolutions(actualState: any){
     this.evolutionArray.push(actualState.species.name);
     if(actualState.evolves_to.length > 0){
@@ -58,7 +58,6 @@ export class PokemonDetailsComponent implements OnInit {
     }
   }
   
-  //Función para ir al home
   goHome(){
     this.router.navigate(['']);
   }
