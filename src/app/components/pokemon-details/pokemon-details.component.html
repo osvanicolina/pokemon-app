@@ -1,9 +1,9 @@
 <div fxLayout="row" fxFill fxLayoutAlign="center center" *ngIf="!loading">  
   <mat-card class="card-picture" >
-    <img mat-card-image *ngIf="!shiny && !back" [src]= "pokemon.sprites.front_default" style="background:rgb(163, 161, 161)">
-    <img mat-card-image *ngIf="!shiny && back" [src]= "pokemon.sprites.back_default" style="background:rgb(163, 161, 161)">
-    <img mat-card-image *ngIf="shiny && !back" [src]= "pokemon.sprites.front_shiny" style="background:rgb(163, 161, 161)">
-    <img mat-card-image *ngIf="shiny && back" [src]= "pokemon.sprites.back_shiny" style="background:rgb(163, 161, 161)">
+    <img mat-card-image *ngIf="!shiny && !back" [src]= "pokemon.sprites.front_default" class="image-bg">
+    <img mat-card-image *ngIf="!shiny && back" [src]= "pokemon.sprites.back_default" class="image-bg">
+    <img mat-card-image *ngIf="shiny && !back" [src]= "pokemon.sprites.front_shiny" class="image-bg">
+    <img mat-card-image *ngIf="shiny && back" [src]= "pokemon.sprites.back_shiny" class="image-bg">
     <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="center">
       <strong>{{ pokemon.id}}.-{{pokemon.name | titlecase}}</strong>
     </mat-card-title>
