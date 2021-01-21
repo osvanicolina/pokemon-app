@@ -9,16 +9,11 @@ import { Router } from '@angular/router';
 export class PokemonCardsComponent {
   @Input() pokemonsToShow: any[] = [];
 
-  constructor(private router: Router) {
-    console.log("Beginning pokemon-cards component!");
-   }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-    console.log(this.pokemonsToShow[0]);
-  }
+  ngOnInit() {}
   
   pokemonDetails(pokemon: any){
-    console.log(pokemon);
     this.router.navigate(['/pokemon', pokemon.id]);
   }
 }

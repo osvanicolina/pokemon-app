@@ -21,29 +21,26 @@ export class PokemonDetailsComponent implements OnInit {
               private pokeApiService: PokeApiService,
               private router: Router) {
     this.activateRoute.params.subscribe( params =>{
-      console.log('Pokemon ID: ' + params['id']);
       if(isNaN(params['id']) || parseInt(params['id']) > 151 || parseInt(params['id']) < 0 ){
         this.router.navigate(['']);
       }
       else{
+        //Get Pokemon details
         this.pokeApiService.getPokemonById(params['id'])
           .subscribe( data => {
             this.pokemon = data;
             this.principalType = data['types'][0].type.name; 
             this.loading = false;
-            console.log("Pokemon info:", this.pokemon);
           }, error => console.log(error));
-  
+        
+        //Get Pokemon chain evolutions
         this.pokeApiService.getPokemonSpecies(params['id'])
           .subscribe( data => {
             this.pokemonSpecies = data;
-            console.log("Pokemon species info:", this.pokemonSpecies);
-  
             this.pokeApiService.getPokemonByUrl(this.pokemonSpecies.evolution_chain.url)
               .subscribe( data => {
                 this.getEvolutions(data['chain']);
                 this.loadingEvolutions = false;
-                console.log("Evolution info:", data);
               }, error => console.log(error));
           }, error => console.log(error));
       }
@@ -57,9 +54,6 @@ export class PokemonDetailsComponent implements OnInit {
     this.evolutionArray.push(actualState.species.name);
     if(actualState.evolves_to.length > 0){
       this.getEvolutions(actualState.evolves_to[0]);
-    }
-    else{
-      console.log(this.evolutionArray);
     }
   }
 
