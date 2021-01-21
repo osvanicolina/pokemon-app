@@ -7,19 +7,25 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PokeApiService {
-  private pokemonList: any[] = [];
-
-  constructor(private http: HttpClient) { 
-    console.log("Poke-Api Service ready!");
-  }
-
-  getQuery(query: string){
-    const url: string = `https://pokeapi.co/api/v2/${query}`;
-    return this.http.get(url).pipe( map( data => data['results'] ));
-  }
+  private apiURL = 'https://pokeapi.co/api/v2/';
+  constructor(private http: HttpClient) {}
 
   getFirstGenList(){
-    return this.getQuery('pokemon/?limit=151');
+    return this.http.get(`${this.apiURL}pokemon/?limit=151`).pipe( map( res => res['results'] ));
+  }
+
+  getPokemonsByType(pokemonType: string){
+    return this.http.get(`${this.apiURL}type/${pokemonType}`).pipe(
+      map( res => {
+        //We clean the format because is not the same that getFirstGenList's endpoint and we filter only first generation pokemons
+        const pokemonList = res['pokemon'];
+        const pokemonListCleaned = pokemonList.map(element => {
+          return element.pokemon;
+        }).filter((element) => element.url.split('/')[6] <= 151);
+
+        return pokemonListCleaned;
+      })
+    );
   }
 
   getPokemonByUrl(url: string){
@@ -27,11 +33,11 @@ export class PokeApiService {
   }
 
   getPokemonById(id: number){
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    return this.http.get(`${this.apiURL}pokemon/${id}`);
   }
   
   getPokemonSpecies(id:number){
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+    return this.http.get(`${this.apiURL}pokemon-species/${id}`);
   }
 
 }

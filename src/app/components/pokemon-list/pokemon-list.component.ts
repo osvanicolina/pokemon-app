@@ -3,9 +3,6 @@ import { PokeApiService } from 'src/app/services/poke-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { pokemonTypes } from '../../models/pokemonTypes';
-
-
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
@@ -33,7 +30,20 @@ export class PokemonListComponent implements OnInit {
     this.filterForm.valueChanges.subscribe(()=> {
       this.loading = true;
       this.filterForm.get('pokemonName').disable({ onlySelf: true });
-      this.pokemonFilter(this.filterForm.get('pokemonName').value);
+      const pokemonName = this.filterForm.get('pokemonName').value;
+      const pokemonType = this.filterForm.get('pokemonTypeName').value;
+      if(pokemonType === ''){
+        this.pokeApiService.getFirstGenList()
+          .subscribe( data => {
+            this.pokemonList = data;
+            this.pokemonFilter(pokemonName);
+          });
+      }else{
+        this.pokeApiService.getPokemonsByType(pokemonType).subscribe((data) => {
+          this.pokemonList = data;
+          this.pokemonFilter(pokemonName);
+        });
+      }
     });
 
     this.pokeApiService.getFirstGenList()
@@ -52,11 +62,7 @@ export class PokemonListComponent implements OnInit {
   
   pokemonFilter(term: string){
     let pokemonFiltered = this.pokemonList.filter( (pokemon)=>{
-      if(pokemon.name.indexOf(term.toLocaleLowerCase()) === -1){
-        return false;
-      }else{
-        return true;
-      }
+      return pokemon.name.indexOf(term.toLocaleLowerCase()) !== -1;
     });
     if(pokemonFiltered.length > 25){
       pokemonFiltered = pokemonFiltered.slice(0,25);
@@ -72,13 +78,13 @@ export class PokemonListComponent implements OnInit {
     }
   }
 
-  private getPokemonsToShow(pokemonList: any[]){ //Se le pasa una lista de máximo 25 elementos
+  private getPokemonsToShow(pokemonList: any[]){ //We show max only 25 elements, for now it doesnt have pagination... so we limit this because API have some request's limit
     this.pokemonsToShow = [];
     pokemonList.forEach((pokemon)=>{
       this.pokeApiService.getPokemonByUrl(pokemon.url)
         .subscribe( data => {
           this.pokemonsToShow.push(data);
-          //Obtenemos el origen del pokemon
+          //We get pokemon's chain evolution
           this.pokeApiService.getPokemonSpecies(data['id'])
             .subscribe(pokemonData => {
               if(pokemonData['evolves_from_species']){
@@ -89,7 +95,7 @@ export class PokemonListComponent implements OnInit {
               return data['evolve_from'] = pokemonData['evolves_from_species']
             });
 
-          //Ordenamos al listar el último elemento
+          //We sort at the last request
           if(this.pokemonsToShow.length === pokemonList.length || this.pokemonsToShow.length === 25){  
 
             this.pokemonsToShow.sort( (pokemonA,pokemonB) =>{
@@ -105,7 +111,7 @@ export class PokemonListComponent implements OnInit {
             this.pokemonNameInput.nativeElement.focus();
             this.loading = false;
           }
-        }, (error) => {console.log(error)})
+        }, (error) => {this.loading = false;})
     });
   }
 }

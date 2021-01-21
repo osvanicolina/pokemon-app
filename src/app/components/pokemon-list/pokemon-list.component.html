@@ -8,9 +8,9 @@
       <br>
       <mat-form-field class="white-bg">
         <mat-label>Pokemon Type:</mat-label>
-        <mat-select formControlName="pokemonType" name="food">
-          <mat-option [value]="">
-            Ninguno
+        <mat-select formControlName="pokemonTypeName">
+          <mat-option value="">
+            Any
           </mat-option>
           <mat-option *ngFor="let pokemonType of pokemonTypesOptions" [value]="pokemonType">
             {{pokemonType | titlecase}}
