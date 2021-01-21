@@ -1,4 +1,4 @@
-export class pokemonSimpleModel{
+export class nameURLModel{
     name: string;
     url: string;
 }

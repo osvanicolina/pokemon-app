@@ -3,15 +3,16 @@ import { PokeApiService } from 'src/app/services/poke-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../error-snack-bar/error-snack-bar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { pokemonSimpleModel } from '../../models/pokemonListModel';
+import { nameURLModel } from '../../models/pokemonListModel';
+import { pokemonModel } from '../../models/pokemonModel';
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
-  pokemonList: pokemonSimpleModel[] = [];
-  pokemonsToShow: any[] = [];
+  pokemonList: nameURLModel[] = [];
+  pokemonsToShow: pokemonModel[] = [];
   messageError: string;
   error: boolean = false;
   loading: boolean = true;
@@ -83,13 +84,13 @@ export class PokemonListComponent implements OnInit {
     this.pokemonsToShow = [];
     pokemonList.forEach((pokemon)=>{
       this.pokeApiService.getPokemonByUrl(pokemon.url)
-        .subscribe( data => {
+        .subscribe( (data: pokemonModel) => {
           this.pokemonsToShow.push(data);
           //We get pokemon's chain evolution
-          this.pokeApiService.getPokemonSpecies(data['id'])
+          this.pokeApiService.getPokemonSpecies(data.id)
             .subscribe(pokemonData => {
-              data['have_evolve_from'] = pokemonData['evolves_from_species']? true: false;
-              return data['evolve_from'] = pokemonData['evolves_from_species'];
+              data.have_evolve_from = pokemonData['evolves_from_species']? true: false;
+              return data.evolve_from = pokemonData['evolves_from_species'];
             });
 
           //We sort at the last request
