@@ -6,3 +6,7 @@
 .search-form{
   background: white;
 }
+
+::ng-deep .mat-card-title{
+  font-size: 1.2em;
+}
